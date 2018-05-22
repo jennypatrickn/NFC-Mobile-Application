@@ -19,7 +19,7 @@ import com.njara.bounty.views.adapters.ProductAdapter;
 import java.util.List;
 
 /**
- * Created by nfidiman on 04/02/2018.
+ * Created by nfidiman on 15/05/2018.
  */
 
 public class ProductFragment extends Fragment {

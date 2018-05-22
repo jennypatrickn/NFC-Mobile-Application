@@ -102,7 +102,7 @@ public class ProductService  extends  RealTimeDatabaseProvider implements IProdu
 
     public List<Product> Find(final RecyclerView recyclerView , final Product foodCriteria){
         productList = new ArrayList<>();
-        Log.d("value",""+productList.size());
+
         DatabaseReference dataBaseRef = this.database.getReference("bounty").child("contents");
         Query searchQuery = dataBaseRef.orderByChild("name");
 

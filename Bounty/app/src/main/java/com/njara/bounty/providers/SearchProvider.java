@@ -34,9 +34,10 @@ public class SearchProvider implements ChildEventListener {
 
         Product product = dataSnapshot.getValue(Product.class);
 
-        productList.clear();
+        //productList.clear();
 
         if(product.IsExist(criteria) &&  !productList.contains(product)){
+
             productList.add(product);
         }
 
