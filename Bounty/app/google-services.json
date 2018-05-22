@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "970465595744",
+    "firebase_url": "https://bounty-40e2e.firebaseio.com",
+    "project_id": "bounty-40e2e",
+    "storage_bucket": "bounty-40e2e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970465595744:android:c3523c7c5542dd5e",
+        "android_client_info": {
+          "package_name": "com.njara.bounty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970465595744-jjuu4mlskrsvi03nr8legikkl6nsg6va.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.njara.bounty",
+            "certificate_hash": "19d700d2de92bc24deee420061a8faea8e947f51"
+          }
+        },
+        {
+          "client_id": "970465595744-pae48su09vru8uan7dgsn0c65rvqg4cn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3FRG7NQIH-RyFa7_SWgG_0VXV2JBxlgQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970465595744-pae48su09vru8uan7dgsn0c65rvqg4cn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
