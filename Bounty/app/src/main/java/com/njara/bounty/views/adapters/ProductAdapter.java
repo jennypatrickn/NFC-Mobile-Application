@@ -1,5 +1,6 @@
 package com.njara.bounty.views.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,6 +23,8 @@ import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter<ProductHolder> {
 
     private Context mContext;
+
+    private Activity activity;
     private List<Product> productList;
 
     @Override
@@ -29,7 +32,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductHolder> {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.product_card, parent, false);
 
-        return new ProductHolder(itemView,new RecyclerViewListener(mContext, Constants.SCREEN_DETAIL_PAGE));
+        return new ProductHolder(itemView,new RecyclerViewListener(activity, Constants.SCREEN_ADD_BASKET));
     }
 
     @Override
@@ -38,7 +41,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductHolder> {
             holder.Init(product);
             holder.title.setText(product.name);
             holder.subTitle.setText(String.valueOf(product.price));
-
+            holder.itemView.setTag(product);
             new LoadImageFeedTask(holder.thumbnail).execute(product.thumbnailUrl);
 
     }
@@ -48,8 +51,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductHolder> {
         return this.productList.size();
     }
 
-    public ProductAdapter(Context mContext, List<Product> productList) {
-        this.mContext = mContext;
+    public ProductAdapter(Activity mContext, List<Product> productList) {
+       // this.mContext = mContext;
+
+        this.activity=mContext;
         this.productList = productList;
     }
 }

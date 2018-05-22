@@ -32,7 +32,7 @@ public class ProductFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.productService =new ProductService(getActivity().getApplicationContext());
+        this.productService =new ProductService(getActivity());
 
 
     }

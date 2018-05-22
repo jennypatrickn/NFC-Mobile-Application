@@ -20,7 +20,11 @@ import com.njara.bounty.helpers.UIHelper;
 import com.njara.bounty.listeners.AuthenticationListener;
 import com.njara.bounty.listeners.NavigationListener;
 import com.njara.bounty.listeners.SearchListener;
+import com.njara.bounty.models.Basket;
+import com.njara.bounty.services.BasketService;
 import com.njara.bounty.services.IAccountService;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         textViewListener=new AuthenticationListener(this,getSupportFragmentManager());
         navigationListener=new NavigationListener(this,getSupportFragmentManager());
         searchListener=new SearchListener(this,getSupportFragmentManager());
-
+        BasketService.baskets=new ArrayList<Basket>();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

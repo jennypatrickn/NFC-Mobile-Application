@@ -12,4 +12,6 @@ public class  Constants {
     public static final String SCREEN_DETAIL_PAGE="SCREEN_DETAIL_PAGE";
 
     public static final String ARG_ID_ITEM="ARG_ID_ITEM";
+
+    public static final String SCREEN_ADD_BASKET="SCREEN_ADD_BASKET";
 }

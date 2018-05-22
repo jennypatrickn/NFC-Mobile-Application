@@ -39,6 +39,7 @@ public class ProductHolder extends RecyclerView.ViewHolder {
         thumbnail=(ImageView) itemView.findViewById(R.id.product_thumbnail);
         overflow=(ImageView) itemView.findViewById(R.id.product_overflow);
         itemView.setOnClickListener(recyclerViewListener);
+
     }
 
     public ProductHolder(View itemView) {
@@ -47,7 +48,7 @@ public class ProductHolder extends RecyclerView.ViewHolder {
         subTitle=(TextView) itemView.findViewById(R.id.product_subTitle);
         thumbnail=(ImageView) itemView.findViewById(R.id.product_thumbnail);
         overflow=(ImageView) itemView.findViewById(R.id.product_overflow);
-        this.itemView.setTag(this.getFood().id);
+
     }
     public void SetThumbnail(String thumbnailUrl){
         Bitmap bmp = null;

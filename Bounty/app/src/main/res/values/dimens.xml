@@ -29,6 +29,12 @@
     <dimen name="searchview_width">400dp</dimen>
     <dimen name="cardview_height">250dp</dimen>
 
+    <dimen name="valueSelector_text">30dp</dimen>
+    <dimen name="valueSelector_margin_top">22dp</dimen>
+    <dimen name="valueSelector_button_hMargin">25dp</dimen>
+    <dimen name="valueSelector_button_insideMargin">20dp</dimen>
+    <dimen name="valueSelector_label_text">14dp</dimen>
+
 
 
 
