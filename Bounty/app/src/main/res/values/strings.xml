@@ -1,3 +1,58 @@
 <resources>
     <string name="app_name">Bounty</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+
+    <string name="menu_signin">SIGN UP OR LOG IN</string>
+
+    <string name="menu_about">About Bounty Apps</string>
+
+    <string name="menu_favorite">Favorite</string>
+
+    <string name="menu_product">Products</string>
+
+    <string name="menu_notifications">Notifications</string>
+
+    <string name="ac_authentication">Authentication</string>
+    <string name="ac_login">Sign In</string>
+    <string name="ac_detail">Details</string>
+    <string name="ac_register">Register</string>
+
+    <string name="login_password">Password</string>
+
+    <string name="login_email">Email</string>
+
+    <string name="text_create_account">Create one</string>
+    <string name="text_desc_create_account">No account yet , </string>
+    <string name="text_desc_sign_account">Already member? , </string>
+
+    <string name="text_have_account">Sign In</string>
+
+    <string name="btn_login">Login</string>
+
+    <string name="btn_header_login">Sign up Or Log in</string>
+
+    <string name="btn_register">Register</string>
+
+    <string name="hint_confirm_password">Confirm password</string>
+
+    <string name="register_name">Surname</string>
+
+    <string name="title_product">Products</string>
+
+    <string name="action_add_favorite">Add to my favorite</string>
+
+    <string name="title_search">Searchs</string>
+
+    <string name="page_detail_information">Informations</string>
+
+
+
 </resources>
