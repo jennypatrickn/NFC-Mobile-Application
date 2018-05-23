@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         UIHelper.UpdateSearchViewUI(this,searchListener );
+        Intent intent = new Intent(this, NFCReader.class);
+        startActivity(intent);
     }
 
     @Override
