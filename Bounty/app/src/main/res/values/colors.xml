@@ -14,5 +14,6 @@
 
     <color name="search_view_text">#878787</color>
     <color name="orange_money">#DB7E14</color>
+    <color name="Black">#FF000000</color>
 
 </resources>
