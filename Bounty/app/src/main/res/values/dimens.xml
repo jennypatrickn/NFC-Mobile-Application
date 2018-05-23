@@ -35,6 +35,8 @@
     <dimen name="valueSelector_button_insideMargin">20dp</dimen>
     <dimen name="valueSelector_label_text">14dp</dimen>
 
+    <dimen name="montant_width">200dp</dimen>
+
 
 
 
