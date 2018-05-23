@@ -4,7 +4,7 @@
     <dimen name="nav_header_height">160dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">5dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="nav_logo_height">75dp</dimen>
 
@@ -28,6 +28,14 @@
 
     <dimen name="searchview_width">400dp</dimen>
     <dimen name="cardview_height">250dp</dimen>
+
+    <dimen name="valueSelector_text">30dp</dimen>
+    <dimen name="valueSelector_margin_top">22dp</dimen>
+    <dimen name="valueSelector_button_hMargin">25dp</dimen>
+    <dimen name="valueSelector_button_insideMargin">20dp</dimen>
+    <dimen name="valueSelector_label_text">14dp</dimen>
+
+    <dimen name="montant_width">200dp</dimen>
 
 
 

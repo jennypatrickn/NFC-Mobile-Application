@@ -1,5 +1,6 @@
 package com.njara.bounty.services;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,22 +28,23 @@ public class ProductService  extends  RealTimeDatabaseProvider implements IProdu
     private RealTimeDatabaseProvider realTimeDatabaseProvider;;
     private List<Product> productList;
     private Context context;
+    private Activity activity;
     public ProductService(){
 
         this.realTimeDatabaseProvider=new RealTimeDatabaseProvider();
     }
 
-    public ProductService(Context context){
+    public ProductService(Activity context){
 
         this.realTimeDatabaseProvider=new RealTimeDatabaseProvider();
-        this.context=context;
+        this.context=context.getApplicationContext();
+        this.activity=context;
     }
     @Override
     public List<Product> GetProducts(final RecyclerView recyclerView) {
         productList = new ArrayList<>();
 
         DatabaseReference dataBaseRef = this.database.getReference("bounty").child("contents");
-       // Query searchQuery = dataBaseRef.orderByChild("name").startAt(foodCriteria.name,"name");
 
         dataBaseRef.addValueEventListener(new ValueEventListener() {
 
@@ -57,7 +59,7 @@ public class ProductService  extends  RealTimeDatabaseProvider implements IProdu
 
                 }
 
-                ProductAdapter productAdapter = new ProductAdapter(context, productList);
+                ProductAdapter productAdapter = new ProductAdapter(activity, productList);
                 recyclerView.setAdapter(productAdapter);
 
             }
@@ -106,7 +108,7 @@ public class ProductService  extends  RealTimeDatabaseProvider implements IProdu
         DatabaseReference dataBaseRef = this.database.getReference("bounty").child("contents");
         Query searchQuery = dataBaseRef.orderByChild("name");
 
-        SearchProvider searchProvider=new SearchProvider(recyclerView,productList,context,foodCriteria);
+        SearchProvider searchProvider=new SearchProvider(recyclerView,productList,this.activity,foodCriteria);
 
 
         searchQuery.addChildEventListener(searchProvider);

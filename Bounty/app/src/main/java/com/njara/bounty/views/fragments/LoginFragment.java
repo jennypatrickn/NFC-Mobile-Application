@@ -19,7 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.njara.bounty.R;
-import com.njara.bounty.listeners.AuthenticationListener;
+import com.njara.bounty.listeners.ButtonActionListener;
 import com.njara.bounty.services.AccountService;
 import com.njara.bounty.services.IAccountService;
 
@@ -31,7 +31,7 @@ public class LoginFragment extends Fragment {
     FragmentTransaction fragmentTransaction;
     private FirebaseAuth fireBaseAuth;
     private Activity parentActivity;
-    private AuthenticationListener textViewListener;
+    private ButtonActionListener textViewListener;
     private IAccountService accountService;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +67,7 @@ public class LoginFragment extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        textViewListener=new AuthenticationListener(getActivity(),getActivity().getSupportFragmentManager());
+        textViewListener=new ButtonActionListener(getActivity(),getActivity().getSupportFragmentManager());
         TextView textViewSignUp = (TextView) view.findViewById(R.id.link_signup);
         textViewSignUp.setOnClickListener(textViewListener);
 

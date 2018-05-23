@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/toplayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="@drawable/triangle_shape"
+            >
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ar"
+                    android:id="@+id/devis"
+                    android:padding="5dp"
+                    android:textStyle="bold"
+                    android:textSize="30dp"
+                    android:textColor="@color/White"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="right">
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="200 000 000"
+                    android:id="@+id/montant_total_top"
+                    android:padding="5dp"
+                    android:textStyle="bold"
+                    android:textSize="33dp"
+                    android:textColor="@color/White"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/basketListView"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_below="@+id/toplayout">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:orientation="vertical"
+
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp"
+
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:text="Win Points:"
+                    android:id="@+id/txt_win"
+
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:textColor="@color/Black"
+                    />
+
+                <TextView
+                    android:id="@+id/win"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:gravity="right"
+                    android:text="20"
+                    android:textColor="@color/Black"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_winpoints"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="28dp"
+                android:theme="@style/AppTheme.Button"
+                android:padding="5dp"
+                android:gravity="center"
+                android:text="Win Points"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_reward"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="28dp"
+                android:theme="@style/AppTheme.Button"
+                android:padding="5dp"
+                android:gravity="center"
+                android:text="Use Gift"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

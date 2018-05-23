@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.njara.bounty.R;
-import com.njara.bounty.listeners.AuthenticationListener;
+import com.njara.bounty.listeners.ButtonActionListener;
 import com.njara.bounty.services.AccountService;
 import com.njara.bounty.services.IAccountService;
 
@@ -20,7 +20,7 @@ import com.njara.bounty.services.IAccountService;
 
 public class RegisterFragment extends Fragment {
     private Activity parentActivity;
-    private AuthenticationListener textViewListener;
+    private ButtonActionListener textViewListener;
     private IAccountService accountService;
 
     @Override
@@ -62,7 +62,7 @@ public class RegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_register, container, false);
-        textViewListener=new AuthenticationListener(getActivity(),getActivity().getSupportFragmentManager());
+        textViewListener=new ButtonActionListener(getActivity(),getActivity().getSupportFragmentManager());
         TextView textViewSignIn = (TextView) view.findViewById(R.id.link_signin);
         textViewSignIn.setOnClickListener(textViewListener);
 

@@ -10,6 +10,8 @@ import android.view.View;
 
 import com.njara.bounty.MainActivity;
 import com.njara.bounty.R;
+import com.njara.bounty.views.BoiteDialog;
+import com.njara.bounty.views.fragments.BasketFragment;
 import com.njara.bounty.views.fragments.LoginFragment;
 import com.njara.bounty.views.fragments.RegisterFragment;
 
@@ -17,12 +19,12 @@ import com.njara.bounty.views.fragments.RegisterFragment;
  * Created by nfidiman on 31/01/2018.
  */
 
-public class AuthenticationListener implements View.OnClickListener {
+public class ButtonActionListener implements View.OnClickListener {
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     public int frameId=R.id.content_main_frame;
     private Activity activity;
-    public AuthenticationListener(Activity activity , FragmentManager fragmentManager){
+    public ButtonActionListener(Activity activity , FragmentManager fragmentManager){
         this.activity=activity;
         this.fragmentManager=fragmentManager;
     }
@@ -68,6 +70,22 @@ public class AuthenticationListener implements View.OnClickListener {
 
                 break;
 
+            case R.id.basketflot:
+
+                fragmentTransaction = this.fragmentManager.beginTransaction();
+                title = this.activity.getResources().getString(R.string.ac_login);
+                fragmentTransaction.replace(R.id.content_main_frame, new BasketFragment(),title).commit();
+
+                break;
+
+            case R.id.btn_winpoints:
+                BoiteDialog boiteDialog =new BoiteDialog(this.activity);
+                boiteDialog.showDialogCard("Test");
+                break;
+
+            case R.id.btn_reward:
+
+                break;
 
             default:
                 break;

@@ -1,5 +1,6 @@
 package com.njara.bounty.providers;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,14 +19,16 @@ import java.util.List;
 public class SearchProvider implements ChildEventListener {
     private List<Product> productList;
     private Context context;
+    private Activity activity;
     private Product criteria;
     private RecyclerView recyclerView;
     public SearchProvider(){}
 
-    public SearchProvider(RecyclerView recyclerView,List<Product> productList, Context context, Product foodCriteria){
+    public SearchProvider(RecyclerView recyclerView,List<Product> productList, Activity context, Product foodCriteria){
             this.recyclerView=recyclerView;
             this.productList=productList;
-            this.context=context;
+            this.context=context.getApplicationContext();
+            this.activity=context;
             this.criteria=foodCriteria;
 
     }
@@ -41,7 +44,7 @@ public class SearchProvider implements ChildEventListener {
             productList.add(product);
         }
 
-        ProductAdapter foodAdapter = new ProductAdapter(context, productList);
+        ProductAdapter foodAdapter = new ProductAdapter(this.activity, productList);
         recyclerView.setAdapter(foodAdapter);
 
 

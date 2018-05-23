@@ -13,5 +13,7 @@
     <color name="food_title">#4c4c4c</color>
 
     <color name="search_view_text">#878787</color>
+    <color name="orange_money">#DB7E14</color>
+    <color name="Black">#FF000000</color>
 
 </resources>

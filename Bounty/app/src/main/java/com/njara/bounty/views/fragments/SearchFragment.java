@@ -33,7 +33,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.productService =new ProductService(getActivity().getApplicationContext());
+        this.productService =new ProductService(getActivity());
 
         SearchView searchEdit=(SearchView)getActivity().findViewById(R.id.searchView);
 		searchEdit.setOnQueryTextListener(this);
