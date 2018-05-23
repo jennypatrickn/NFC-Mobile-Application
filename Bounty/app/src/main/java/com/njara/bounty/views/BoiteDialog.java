@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.njara.bounty.R;
@@ -33,8 +34,8 @@ public class BoiteDialog {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this.context);
         alertDialog.setView(inputLayout);
         alertDialog.setCancelable(false);
-        alertDialog.setPositiveButton("Confirmer", null);
-        alertDialog.setNegativeButton("Fermer", null);
+        alertDialog.setPositiveButton("Confirm", null);
+        alertDialog.setNegativeButton("Close", null);
         final AlertDialog d = alertDialog.create();
         d.show();
         final Button ok = d.getButton(AlertDialog.BUTTON_POSITIVE);
@@ -50,8 +51,6 @@ public class BoiteDialog {
 
                  String resp = spinnerNumber.getValueTextView().getText().toString();
 
-                Log.e("Testing" ,resp);
-
                 d.dismiss();
 
             }
@@ -63,5 +62,44 @@ public class BoiteDialog {
             }
         });
 
+    }
+
+    public  void showDialogCard(final String type){
+        LinearLayout inputLayout = (LinearLayout) this.context.getLayoutInflater().inflate(R.layout.show_dialog_card, null);
+        final TextView text=(TextView) inputLayout.findViewById(R.id.text_confirm);
+        final TextView text2=(TextView) inputLayout.findViewById(R.id.traitement);
+        text.setText("Wait for your card");
+        final ProgressBar pro=(ProgressBar)inputLayout.findViewById(R.id.pro1);
+        pro.setVisibility(View.GONE);
+        text2.setVisibility(View.GONE);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this.context);
+        alertDialog.setView(inputLayout);
+        alertDialog.setCancelable(false);
+        alertDialog.setPositiveButton("Ok", null);
+        alertDialog.setNegativeButton("Close", null);
+        final AlertDialog d=alertDialog.create();
+        d.show();
+        final Button ok=d.getButton(AlertDialog.BUTTON_POSITIVE);
+        final Button non=d.getButton(AlertDialog.BUTTON_NEGATIVE);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                ok.setEnabled(false);
+                non.setEnabled(false);
+                pro.setVisibility(View.VISIBLE);
+                text2.setVisibility(View.VISIBLE);
+                text.setVisibility(View.GONE);
+
+                //Todo implement card read
+
+            }
+        });
+        non.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                d.dismiss();
+
+            }
+        });
     }
 }

@@ -45,7 +45,6 @@ public class ProductService  extends  RealTimeDatabaseProvider implements IProdu
         productList = new ArrayList<>();
 
         DatabaseReference dataBaseRef = this.database.getReference("bounty").child("contents");
-       // Query searchQuery = dataBaseRef.orderByChild("name").startAt(foodCriteria.name,"name");
 
         dataBaseRef.addValueEventListener(new ValueEventListener() {
 

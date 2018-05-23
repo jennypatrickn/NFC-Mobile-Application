@@ -15,7 +15,7 @@
         <LinearLayout
             android:id="@+id/toplayout"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="50dp"
             android:orientation="horizontal"
             android:background="@drawable/triangle_shape"
             >
@@ -30,9 +30,9 @@
                     android:layout_height="wrap_content"
                     android:text="Ar"
                     android:id="@+id/devis"
-                    android:padding="12dp"
+                    android:padding="5dp"
                     android:textStyle="bold"
-                    android:textSize="45dp"
+                    android:textSize="30dp"
                     android:textColor="@color/White"
                     />
 
@@ -48,9 +48,9 @@
                     android:layout_height="wrap_content"
                     android:text="200 000 000"
                     android:id="@+id/montant_total_top"
-                    android:padding="19dp"
+                    android:padding="5dp"
                     android:textStyle="bold"
-                    android:textSize="40dp"
+                    android:textSize="33dp"
                     android:textColor="@color/White"
                     />
 
@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/myListSimple"
+                android:id="@+id/basketListView"
                 android:scrollbars="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
@@ -78,62 +78,34 @@
             android:orientation="vertical"
 
             >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:paddingBottom="18dp"
-                >
-                <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:text="Montant:"
-                    android:id="@+id/txt_montant_ht"
-                    android:textStyle="bold"
-                    android:textSize="25dp"
-                    android:textColor="@color/Black"
-                    />
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="150 000"
-                    android:id="@+id/montant_ht"
-                    android:gravity="right"
-
-                    android:textStyle="bold"
-                    android:layout_marginLeft="50dp"
-                    android:textSize="25dp"
-                    android:textColor="@color/Black"
-                    />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:paddingBottom="18dp"
+                android:paddingBottom="5dp"
 
                 android:weightSum="1">
                 <TextView
-                    android:layout_width="200dp"
+                    android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:text="Win Points:"
-                    android:id="@+id/txt_tva"
+                    android:id="@+id/txt_win"
 
                     android:textStyle="bold"
-                    android:textSize="25dp"
+                    android:textSize="18dp"
                     android:textColor="@color/Black"
                     />
 
                 <TextView
-                    android:id="@+id/tva"
+                    android:id="@+id/win"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp"
                     android:gravity="right"
                     android:text="20"
                     android:textColor="@color/Black"
-                    android:textSize="25dp"
+                    android:textSize="18dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -150,7 +122,7 @@
                 android:layout_height="50dp"
                 android:layout_marginBottom="28dp"
                 android:theme="@style/AppTheme.Button"
-                android:padding="12dp"
+                android:padding="5dp"
                 android:gravity="center"
                 android:text="Win Points"/>
 
@@ -160,7 +132,7 @@
                 android:layout_height="50dp"
                 android:layout_marginBottom="28dp"
                 android:theme="@style/AppTheme.Button"
-                android:padding="12dp"
+                android:padding="5dp"
                 android:gravity="center"
                 android:text="Use Gift"/>
         </LinearLayout>
