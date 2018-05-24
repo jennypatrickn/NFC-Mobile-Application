@@ -137,55 +137,61 @@ public class NFCReader extends Activity implements NfcAdapter.CreateNdefMessageC
         String textEncoded ="{";
         int content = tag.describeContents();
         Ndef ndef = Ndef.get(tag);
-        boolean isWritable = ndef.isWritable();
-        boolean canMakeReadOnly = ndef.canMakeReadOnly();
-        //Récupération des messages
-        Parcelable[] rawMsgs = intent.getParcelableArrayExtra(
-                NfcAdapter.EXTRA_NDEF_MESSAGES);
-        NdefMessage[] msgs;
-        //Boucle sur les enregistrements
-        Log.d("Test","Before check");
-        if (rawMsgs != null) {
-            msgs = new NdefMessage[rawMsgs.length];
-            for (int i = 0; i < rawMsgs.length; i++) {
-                msgs[i] = (NdefMessage) rawMsgs[i];
-                for(int j = 0; j <msgs[i].getRecords().length;j++ ){
-                    NdefRecord record = msgs[i].getRecords()[j];
-                    byte[] idRec = record.getId();
-                    short tnf = record.getTnf();
-                    byte[] type = record.getType();
-                    byte[] message = record.getPayload();
-                    String textEncoding = ((message[0] & 128) == 0) ? "UTF-8" : "UTF-16";
-                    int languageCodeLength = message[0] & 0063;
-                    try {
-                        // Get the Text
-                        textEncoded = new String(message, languageCodeLength + 1, message.length - languageCodeLength - 1, textEncoding);
-                        informations.add(textEncoded);
-                    } catch (Exception e) {
-                        Log.e("UnsupportedEncoding", e.toString());
+        if(ndef!=null){
+            boolean isWritable = ndef.isWritable();
+            boolean canMakeReadOnly = ndef.canMakeReadOnly();
+            //Récupération des messages
+            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(
+                    NfcAdapter.EXTRA_NDEF_MESSAGES);
+            NdefMessage[] msgs;
+            //Boucle sur les enregistrements
+            Log.d("Test","Before check");
+            if (rawMsgs != null) {
+                msgs = new NdefMessage[rawMsgs.length];
+                for (int i = 0; i < rawMsgs.length; i++) {
+                    msgs[i] = (NdefMessage) rawMsgs[i];
+                    if(msgs[i].getRecords().length > 0){
+                        for(int j = 0; j <msgs[i].getRecords().length;j++ ){
+                            NdefRecord record = msgs[i].getRecords()[j];
+                            byte[] idRec = record.getId();
+                            short tnf = record.getTnf();
+                            byte[] type = record.getType();
+                            byte[] message = record.getPayload();
+                            String textEncoding = ((message[0] & 128) == 0) ? "UTF-8" : "UTF-16";
+                            int languageCodeLength = message[0] & 0063;
+                            try {
+                                // Get the Text
+                                textEncoded = new String(message, languageCodeLength + 1, message.length - languageCodeLength - 1, textEncoding);
+                                informations.add(textEncoded);
+                            } catch (Exception e) {
+                                Log.e("UnsupportedEncoding", e.toString());
+                            }
+                            //Utiliser ?
+                            //Laisser Android choisir l’appli par défaut si type URI ?
+                            if (Arrays.equals(type, NdefRecord.RTD_URI)) {
+                                Uri uri = record.toUri();
+                                Toast.makeText(getApplicationContext(),
+                                        "URI: "+uri, Toast.LENGTH_LONG).show();
+                            }
+                        }
                     }
-                    //Utiliser ?
-                    //Laisser Android choisir l’appli par défaut si type URI ?
-                    if (Arrays.equals(type, NdefRecord.RTD_URI)) {
-                        Uri uri = record.toUri();
-                        Toast.makeText(getApplicationContext(),
-                                "URI: "+uri, Toast.LENGTH_LONG).show();
-                    }
+                }
+            } else {
+                //Tag de type inconnu, tester une récupération du contenu hexadécimal ?
+                byte[] empty = new byte[]{};
+                NdefRecord record = new NdefRecord(NdefRecord.TNF_UNKNOWN,
+                        empty, empty, empty);
+                NdefMessage msg = new NdefMessage(new NdefRecord[]{record});
+                msgs = new NdefMessage[]{msg};
+            }
+            //Traiter les informations...
+            if(informations!=null){
+                for(String info : informations){
+                    Toast.makeText(getApplicationContext(),
+                            "Message: "+info, Toast.LENGTH_LONG).show();
                 }
 
             }
-        } else {
-            //Tag de type inconnu, tester une récupération du contenu hexadécimal ?
-            byte[] empty = new byte[]{};
-            NdefRecord record = new NdefRecord(NdefRecord.TNF_UNKNOWN,
-                    empty, empty, empty);
-            NdefMessage msg = new NdefMessage(new NdefRecord[]{record});
-            msgs = new NdefMessage[]{msg};
-        }
-        //Traiter les informations...
-        for(String info : informations){
-            Toast.makeText(getApplicationContext(),
-                    "Message: "+info, Toast.LENGTH_LONG).show();
         }
 
     }
