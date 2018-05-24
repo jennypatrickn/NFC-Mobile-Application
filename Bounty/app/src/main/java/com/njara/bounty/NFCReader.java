@@ -23,8 +23,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class NFCReader extends Activity implements NfcAdapter.CreateNdefMessageCallback {
@@ -32,7 +34,13 @@ public class NFCReader extends Activity implements NfcAdapter.CreateNdefMessageC
     PendingIntent pendingIntent;
     Tag tag;
     Button writeBtn;
-
+    Button readBtn;
+    private String name;
+    private String firstname;
+    private String clientId;
+    private String point;
+    private String bonAchat;
+    private List<String> informations;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +54,15 @@ public class NFCReader extends Activity implements NfcAdapter.CreateNdefMessageC
                         "Please enable your mobile NFC.", Toast.LENGTH_LONG).show();
             }
         }
+        Bundle extras = getIntent().getExtras();
+        name = extras.getString("Nom");
+        firstname = extras.getString("Prenom");
+        clientId = extras.getString("IdClient");
+        point = extras.getString("Point");
+        bonAchat = extras.getString("BA");
+
+        Toast.makeText(getApplicationContext(),
+                "WinText: "+name, Toast.LENGTH_LONG).show();
         //processNfcIntent(getIntent());
         setContentView(R.layout.activity_nfcreader);
         writeBtnTag();
@@ -101,16 +118,23 @@ public class NFCReader extends Activity implements NfcAdapter.CreateNdefMessageC
                 /**
                  * Save Data To NFC
                  */
-                saveDataToTag("Anarana", "Fanampiny", "Laharana", "Isa", "Vola");
+                saveDataToTag(name, firstname, clientId, point, bonAchat);
             }
         });
     }
+
+    /**
+     * Read from NFC TAG
+     * @param intent
+     *
+     */
     public void processNfcIntent(Intent intent) {
         //Infos sur le tag
+        informations = new ArrayList<>();
         tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         byte[] id = tag.getId();
         String[] technologies = tag.getTechList();
-        String textEncoded ="}";
+        String textEncoded ="{";
         int content = tag.describeContents();
         Ndef ndef = Ndef.get(tag);
         boolean isWritable = ndef.isWritable();
@@ -135,8 +159,8 @@ public class NFCReader extends Activity implements NfcAdapter.CreateNdefMessageC
                     int languageCodeLength = message[0] & 0063;
                     try {
                         // Get the Text
-                        textEncoded += new String(message, languageCodeLength + 1, message.length - languageCodeLength - 1, textEncoding);
-                        Log.e("Result", textEncoded);
+                        textEncoded = new String(message, languageCodeLength + 1, message.length - languageCodeLength - 1, textEncoding);
+                        informations.add(textEncoded);
                     } catch (Exception e) {
                         Log.e("UnsupportedEncoding", e.toString());
                     }
@@ -149,7 +173,6 @@ public class NFCReader extends Activity implements NfcAdapter.CreateNdefMessageC
                     }
                 }
 
-
             }
         } else {
             //Tag de type inconnu, tester une récupération du contenu hexadécimal ?
@@ -160,12 +183,18 @@ public class NFCReader extends Activity implements NfcAdapter.CreateNdefMessageC
             msgs = new NdefMessage[]{msg};
         }
         //Traiter les informations...
-        textEncoded+="}";
+        for(String info : informations){
+            Toast.makeText(getApplicationContext(),
+                    "Message: "+info, Toast.LENGTH_LONG).show();
+        }
 
-        Toast.makeText(getApplicationContext(),
-                "Message: "+textEncoded, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Create a NdefRecord from a text
+     * @param text
+     * @return
+     */
     private NdefRecord createRecord(String text){
         try{
             String lang       = "en";
@@ -188,6 +217,11 @@ public class NFCReader extends Activity implements NfcAdapter.CreateNdefMessageC
         return null;
     }
 
+    /**
+     * Create an NdefMessage form a list of NdefRecord
+     * @param records
+     * @return
+     */
 
     public NdefMessage createNdefMessage(NdefRecord[] records)
     {
@@ -195,6 +229,12 @@ public class NFCReader extends Activity implements NfcAdapter.CreateNdefMessageC
         return msg;
     }
 
+    /**
+     * Write the Message to the TAG NFC
+     * @param message
+     * @param tag
+     * @return
+     */
     public static boolean writeTag(final NdefMessage message, final Tag tag)
     {
         try
@@ -243,10 +283,18 @@ public class NFCReader extends Activity implements NfcAdapter.CreateNdefMessageC
         }
     }
 
+    /**
+     * Save Data to NFC
+     * @param name
+     * @param firstName
+     * @param idClient
+     * @param point
+     * @param bondAchat
+     */
     public void saveDataToTag(String name, String firstName, String idClient, String point, String bondAchat){
-        NdefRecord[] records = { createRecord("'Nom':"+name),
-                createRecord(",'Prenom':"+firstName), createRecord(",'IdClient':"+idClient),
-                createRecord(",'Point':"+point), createRecord(",'BonAchat':"+bondAchat)};
+        NdefRecord[] records = { createRecord(name),
+                createRecord(firstName), createRecord(idClient),
+                createRecord(point), createRecord(bondAchat)};
         NdefMessage ndefMessage = createNdefMessage(records);
         writeTag(ndefMessage,tag);
     }

@@ -1,6 +1,7 @@
 package com.njara.bounty.views;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.njara.bounty.NFCReader;
 import com.njara.bounty.R;
 
 /**
@@ -91,6 +93,13 @@ public class BoiteDialog {
                 text.setVisibility(View.GONE);
 
                 //Todo implement card read
+                Intent intent = new Intent(context, NFCReader.class);
+                intent.putExtra("Nom","RAKOTO");
+                intent.putExtra("Prenom","Charlie");
+                intent.putExtra("IdClient","CL001");
+                intent.putExtra("Point","20");
+                intent.putExtra("BA","200000");
+                context.startActivity(intent);
 
             }
         });
