@@ -1,120 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              xmlns:card_view="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="75dp"
+        card_view:cardCornerRadius="@dimen/card_food_radius"
+        android:paddingBottom="5dp"
         android:id="@+id/cv"
         >
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            >
-
-            <ImageView
-                android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/photo_article"
-                android:src="@drawable/medicine_bottle"
-                android:layout_alignParentLeft="true"
+                android:id="@+id/txt_designation"
+                android:text="VAHONAaaaa"
+                android:layout_marginLeft="5dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="8dp"
+                android:textSize="16sp"
                 />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="x1"
+                android:id="@+id/qt"
+                android:layout_marginLeft="5dp"
+                android:textSize="20sp"
+                android:layout_toRightOf="@+id/txt_designation"
+                />
+            <TextView
+                android:layout_width="@dimen/montant_width"
+                android:layout_height="wrap_content"
+                android:text="Ar 2 000 000"
+                android:id="@+id/sum_amount"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/qt"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/orange_money"
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_toRightOf="@+id/photo_article"
-                >
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:id="@+id/linear_txt_designation"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/txt_code"
-                        android:text="12312321"
-
-                        android:layout_alignParentTop="true"
-                        android:textSize="25sp"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/txt_designation"
-                        android:text="VAHONAaaaaaaaaaa"
-                        android:layout_marginLeft="50dp"
-                        android:layout_alignParentTop="true"
-                        android:textSize="25sp"
-                        />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:id="@+id/linear_second_line_panier"
-                    android:layout_below="@+id/linear_txt_designation"
-                    android:layout_marginLeft="75dp"
-                    >
-                    <TextView
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:text="x1"
-                        android:id="@+id/qt"
-                        android:textSize="25sp"
-                        />
-                    <TextView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:text="1 0000"
-                        android:id="@+id/pu"
-                        android:layout_toRightOf="@+id/qt"
-                        android:textSize="25sp"></TextView>
-                    <TextView
-                        android:layout_width="@dimen/montant_width"
-                        android:layout_height="wrap_content"
-                        android:text="Ar 2 000 000"
-                        android:id="@+id/montant_article"
-                        android:gravity="center"
-                        android:layout_marginLeft="15dp"
-
-                        android:textStyle="bold"
-                        android:layout_toRightOf="@+id/pu"
-                        android:textSize="28sp"
-                        android:textColor="@color/orange_money"
-
-                        />
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:background="@null"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imageButton"
-                        android:layout_marginLeft="20dp"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/delete_button"
-                        android:layout_toRightOf="@+id/montant_article"/>
-
-                </LinearLayout>
-            </LinearLayout>
-
-
-
-
-
+                />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:background="@null"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageButton"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/basket_delete_button"
+                android:layout_toRightOf="@+id/sum_amount"/>
 
         </RelativeLayout>
+
 
     </android.support.v7.widget.CardView>
 

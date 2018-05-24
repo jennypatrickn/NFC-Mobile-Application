@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.njara.bounty.models.Product;
-import com.njara.bounty.services.BasketService;
 import com.njara.bounty.views.BoiteDialog;
 import com.njara.bounty.views.holders.ProductHolder;
 
@@ -33,11 +32,15 @@ public  class RecyclerViewListener implements OnClickListener {
                     ProductHolder productHolder=new ProductHolder(v);
                     Product product=(Product)productHolder.itemView.getTag();
 
-                    BasketService.addToBasket(product,1);
-
                     BoiteDialog boiteDialog =new BoiteDialog(this.activity);
 
-                    boiteDialog.showUpdateQt(product.id,20);
+                    boiteDialog.showUpdateQt(product,20);
+
+                    //LinearLayout fragmentBasket = (LinearLayout) this.activity.getLayoutInflater().inflate(R.layout.fragment_basket, null);
+
+                   // TextView winpointText =(TextView) fragmentBasket.findViewById(R.id.win);
+
+
 
                     break;
             }

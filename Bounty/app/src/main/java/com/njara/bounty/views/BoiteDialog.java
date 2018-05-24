@@ -3,7 +3,6 @@ package com.njara.bounty.views;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -12,6 +11,8 @@ import android.widget.TextView;
 
 import com.njara.bounty.NFCReader;
 import com.njara.bounty.R;
+import com.njara.bounty.models.Product;
+import com.njara.bounty.services.BasketService;
 
 /**
  * Created by njara on 22/05/2018.
@@ -25,9 +26,10 @@ public class BoiteDialog {
         // TODO Auto-generated constructor stub
         this.context = context;
     }
-    public void showUpdateQt(final int position,int nbrenstock) {
+    public void showUpdateQt(final Product product, int nbrenstock) {
 
         LinearLayout inputLayout = (LinearLayout) context.getLayoutInflater().inflate(R.layout.dialog_update_qt, null);
+
         final TextView text = (TextView) inputLayout.findViewById(R.id.text_confirm);
         text.setText("Add quantity to basket");
 
@@ -52,7 +54,7 @@ public class BoiteDialog {
             public void onClick(View arg0) {
 
                  String resp = spinnerNumber.getValueTextView().getText().toString();
-
+                 BasketService.addToBasket(product,new Integer(resp));
                 d.dismiss();
 
             }

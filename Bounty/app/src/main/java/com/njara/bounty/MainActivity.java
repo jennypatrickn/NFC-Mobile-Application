@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,6 +24,7 @@ import com.njara.bounty.listeners.SearchListener;
 import com.njara.bounty.models.Basket;
 import com.njara.bounty.services.BasketService;
 import com.njara.bounty.services.IAccountService;
+import com.njara.bounty.views.fragments.ProductFragment;
 
 import java.util.ArrayList;
 
@@ -31,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private ButtonActionListener textViewListener;
     private NavigationListener navigationListener;
     private SearchListener searchListener;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,8 +66,11 @@ public class MainActivity extends AppCompatActivity {
         basketFlot.setOnClickListener(textViewListener);
 
         UIHelper.UpdateSearchViewUI(this,searchListener );
-        Intent intent = new Intent(this, NFCReader.class);
-        startActivity(intent);
+
+
+        fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
+        String title = this.getResources().getString(R.string.title_product);
+        fragmentTransaction.replace(R.id.content_main_frame, new ProductFragment(),title).commit();
     }
 
     @Override
