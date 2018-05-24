@@ -1,16 +1,18 @@
 package com.njara.bounty.views;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.njara.bounty.NFCReader;
+import com.njara.bounty.MainActivity;
 import com.njara.bounty.R;
+import com.njara.bounty.appnjara.Util.Utilitaire;
+import com.njara.bounty.helpers.Constants;
 import com.njara.bounty.models.Product;
 import com.njara.bounty.services.BasketService;
 
@@ -94,14 +96,45 @@ public class BoiteDialog {
                 text2.setVisibility(View.VISIBLE);
                 text.setVisibility(View.GONE);
 
-                //Todo implement card read
-                Intent intent = new Intent(context, NFCReader.class);
-                intent.putExtra("Nom","RAKOTO");
-                intent.putExtra("Prenom","Charlie");
-                intent.putExtra("IdClient","CL001");
-                intent.putExtra("Point","20");
-                intent.putExtra("BA","200000");
-                context.startActivity(intent);
+                try {
+                    MainActivity main=(MainActivity)context;
+                    main.nfcReader.processNfcIntent(null);
+                    if(type== Constants.GIFT){
+
+                       double gift= BasketService.card.points*BasketService.fidelity.Gift;
+                        BasketService.card.points=0;
+                        main.nfcReader.saveDataToTag(BasketService.card);
+                        Thread.sleep(3000);
+                        non.setEnabled(true);
+                        text2.setText("You have "+gift +" Ar");
+                        BasketService.discount=gift;
+                       TextView  discount=(TextView)context.findViewById(R.id.discount);
+                       discount.setText(Utilitaire.format(gift));
+
+                    }else{
+                        BasketService.card.points=BasketService.card.points+BasketService.getPoints();
+                        main.nfcReader.saveDataToTag(BasketService.card);
+
+                        Thread.sleep(3000);
+                        non.setEnabled(true);
+                        text2.setText("You have got "+BasketService.card.points +"points");
+                    }
+
+                    AppCompatButton win=(AppCompatButton)context.findViewById(R.id.btn_winpoints);
+                    win.setVisibility(View.GONE);
+                    AppCompatButton reward=(AppCompatButton)context.findViewById(R.id.btn_reward);
+                    reward.setVisibility(View.GONE);
+
+                    AppCompatButton order=(AppCompatButton)context.findViewById(R.id.btn_order);
+                    order.setVisibility(View.VISIBLE);
+
+
+
+
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
             }
         });
@@ -113,4 +146,6 @@ public class BoiteDialog {
             }
         });
     }
+
+
 }

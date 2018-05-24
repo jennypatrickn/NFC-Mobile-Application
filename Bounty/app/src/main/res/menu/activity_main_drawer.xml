@@ -9,14 +9,6 @@
             android:icon="@drawable/img_nav_home"
             android:title="@string/menu_home"
             />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/img_nav_notification"
-            android:title="@string/menu_notifications"/>
-        <item
-            android:id="@+id/nav_favorite"
-            android:icon="@drawable/img_nav_favorite"
-            android:title="@string/menu_favorite"/>
 
         <item
             android:id="@+id/nav_product"

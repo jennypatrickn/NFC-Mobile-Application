@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <LinearLayout
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:scrollbars="vertical">
 
         <LinearLayout
             android:id="@+id/toplayout"
@@ -80,18 +81,17 @@
             >
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
                 android:orientation="horizontal"
                 android:paddingBottom="5dp"
 
                 android:weightSum="1">
                 <TextView
-                    android:layout_width="180dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:text="Win Points:"
                     android:id="@+id/txt_win"
-
                     android:textStyle="bold"
                     android:textSize="18dp"
                     android:textColor="@color/Black"
@@ -101,7 +101,36 @@
                     android:id="@+id/win"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="right"
+                    android:text="00"
+                    android:textColor="@color/Black"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Discount:"
+                    android:id="@+id/txt_discount"
+
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:textColor="@color/Black"
+                    />
+
+                <TextView
+                    android:id="@+id/discount"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:gravity="right"
                     android:text="00"
                     android:textColor="@color/Black"
@@ -114,11 +143,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_winpoints"
-                android:layout_width="200dp"
+                android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="28dp"
                 android:theme="@style/AppTheme.Button"
@@ -128,14 +158,25 @@
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_reward"
-                android:layout_width="200dp"
+                android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="28dp"
                 android:theme="@style/AppTheme.Button"
                 android:padding="5dp"
                 android:gravity="center"
                 android:text="Use Gift"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_order"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="28dp"
+                android:theme="@style/AppTheme.Button"
+                android:padding="5dp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:text="Get it"/>
         </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

@@ -16,4 +16,6 @@ public class  Constants {
     public static final String SCREEN_ADD_BASKET="SCREEN_ADD_BASKET";
 
     public static final String SCREEN_DELETE_BASKET="SCREEN_DELETE_BASKET";
+
+    public static final String GIFT ="GIFT";
 }

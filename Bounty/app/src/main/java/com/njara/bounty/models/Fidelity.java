@@ -7,5 +7,6 @@ public class Fidelity {
 
     public double Excess=20000;
     public double WinCash=1000;
+    public double Gift= 500;
 
 }

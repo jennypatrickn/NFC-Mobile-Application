@@ -3,36 +3,29 @@ package com.njara.bounty;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
-import android.nfc.NfcEvent;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Parcelable;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.njara.bounty.models.Card;
+import com.njara.bounty.services.BasketService;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class NFCReader extends Activity implements NfcAdapter.CreateNdefMessageCallback {
-    NfcAdapter nfcAdapter;
-    PendingIntent pendingIntent;
-    Tag tag;
+public class NFCReader   {
+    public NfcAdapter nfcAdapter;
+    public PendingIntent pendingIntent;
+    public Intent intent;
+    public Tag tag;
     Button writeBtn;
     Button readBtn;
     private String name;
@@ -41,87 +34,19 @@ public class NFCReader extends Activity implements NfcAdapter.CreateNdefMessageC
     private String point;
     private String bonAchat;
     private List<String> informations;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.e("Test","Tafitritra create");
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass())
-                .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-        if(nfcAdapter!=null) {
-            if (!nfcAdapter.isEnabled()) {
-                Toast.makeText(getApplicationContext(),
-                        "Please enable your mobile NFC.", Toast.LENGTH_LONG).show();
-            }
-        }
-        Bundle extras = getIntent().getExtras();
-        name = extras.getString("Nom");
-        firstname = extras.getString("Prenom");
-        clientId = extras.getString("IdClient");
-        point = extras.getString("Point");
-        bonAchat = extras.getString("BA");
+    public Activity activity;
 
-        Toast.makeText(getApplicationContext(),
-                "WinText: "+name, Toast.LENGTH_LONG).show();
-        //processNfcIntent(getIntent());
-        setContentView(R.layout.activity_nfcreader);
-        writeBtnTag();
+
+    public NFCReader(){
+
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.e("Test","Tafiditra");
-        try {
-            IntentFilter[] intentFiltersArray = new IntentFilter[]{};
-            String[][] techListsArray = new String[][]{
-                    {android.nfc.tech.Ndef.class.getName()},
-                    {android.nfc.tech.NdefFormatable.class.getName()}};
-            if(nfcAdapter!=null)
-            nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray,
-                    techListsArray);
-        }
-        catch(Exception ex){
-            Toast.makeText(getApplicationContext(),
-                    "NFC not supported.", Toast.LENGTH_LONG).show();
-        }
+    public NFCReader(Activity activity){
+        this.activity=activity;
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        nfcAdapter.disableForegroundDispatch(this);
-    }
 
-    @Override
-    public NdefMessage createNdefMessage(NfcEvent event) {
-        return null;
-    }
 
-    @Override
-    public void onNewIntent(Intent intent) {
-        String action = intent.getAction();
-        Log.e("Test",action);
-        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action) ||
-                NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action) ||
-                NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)) {
-            //Méthode qui va traiter le tag NFC
-            processNfcIntent(intent);
-        }
-    }
-
-    public void writeBtnTag(){
-        writeBtn = (Button) findViewById(R.id.writeBtn);
-        writeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /**
-                 * Save Data To NFC
-                 */
-                saveDataToTag(name, firstname, clientId, point, bonAchat);
-            }
-        });
-    }
 
     /**
      * Read from NFC TAG
@@ -129,6 +54,9 @@ public class NFCReader extends Activity implements NfcAdapter.CreateNdefMessageC
      *
      */
     public void processNfcIntent(Intent intent) {
+        if(intent==null){
+            intent=this.intent;
+        }
         //Infos sur le tag
         informations = new ArrayList<>();
         tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
@@ -144,7 +72,6 @@ public class NFCReader extends Activity implements NfcAdapter.CreateNdefMessageC
                 NfcAdapter.EXTRA_NDEF_MESSAGES);
         NdefMessage[] msgs;
         //Boucle sur les enregistrements
-        Log.d("Test","Before check");
         if (rawMsgs != null) {
             msgs = new NdefMessage[rawMsgs.length];
             for (int i = 0; i < rawMsgs.length; i++) {
@@ -168,8 +95,8 @@ public class NFCReader extends Activity implements NfcAdapter.CreateNdefMessageC
                     //Laisser Android choisir l’appli par défaut si type URI ?
                     if (Arrays.equals(type, NdefRecord.RTD_URI)) {
                         Uri uri = record.toUri();
-                        Toast.makeText(getApplicationContext(),
-                                "URI: "+uri, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(this.activity.getApplicationContext(),
+                         //       "URI: "+uri, Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -182,11 +109,8 @@ public class NFCReader extends Activity implements NfcAdapter.CreateNdefMessageC
             NdefMessage msg = new NdefMessage(new NdefRecord[]{record});
             msgs = new NdefMessage[]{msg};
         }
-        //Traiter les informations...
-        for(String info : informations){
-            Toast.makeText(getApplicationContext(),
-                    "Message: "+info, Toast.LENGTH_LONG).show();
-        }
+        Card card =new Card(informations);
+        BasketService.card=card;
 
     }
 
@@ -283,18 +207,17 @@ public class NFCReader extends Activity implements NfcAdapter.CreateNdefMessageC
         }
     }
 
+
     /**
      * Save Data to NFC
-     * @param name
-     * @param firstName
-     * @param idClient
-     * @param point
-     * @param bondAchat
+     *
      */
-    public void saveDataToTag(String name, String firstName, String idClient, String point, String bondAchat){
-        NdefRecord[] records = { createRecord(name),
-                createRecord(firstName), createRecord(idClient),
-                createRecord(point), createRecord(bondAchat)};
+    public void saveDataToTag(Card card){
+        Log.e("Card", card.name);
+
+        NdefRecord[] records = { createRecord(card.name),
+                createRecord(card.surname), createRecord(card.id),
+                createRecord(""+card.points), createRecord("2000")};
         NdefMessage ndefMessage = createNdefMessage(records);
         writeTag(ndefMessage,tag);
     }

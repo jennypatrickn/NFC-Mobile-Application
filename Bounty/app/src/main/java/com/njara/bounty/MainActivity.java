@@ -1,6 +1,11 @@
 package com.njara.bounty;
 
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.nfc.NdefMessage;
+import android.nfc.NfcAdapter;
+import android.nfc.NfcEvent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -16,19 +21,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.njara.bounty.helpers.UIHelper;
 import com.njara.bounty.listeners.ButtonActionListener;
 import com.njara.bounty.listeners.NavigationListener;
 import com.njara.bounty.listeners.SearchListener;
 import com.njara.bounty.models.Basket;
+import com.njara.bounty.models.Card;
+import com.njara.bounty.models.Fidelity;
 import com.njara.bounty.services.BasketService;
 import com.njara.bounty.services.IAccountService;
 import com.njara.bounty.views.fragments.ProductFragment;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements  NfcAdapter.CreateNdefMessageCallback {
 
     private IAccountService accountService;
     private ButtonActionListener textViewListener;
@@ -36,10 +44,29 @@ public class MainActivity extends AppCompatActivity {
     private SearchListener searchListener;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    public NFCReader nfcReader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        nfcReader=new NFCReader(this);
+
+        BasketService.card=new Card();
+        BasketService.fidelity=new Fidelity();
+
+        //NFC
+        nfcReader.nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        nfcReader.pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass())
+                .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+        if(nfcReader.nfcAdapter!=null) {
+            if (!nfcReader.nfcAdapter.isEnabled()) {
+                Toast.makeText(getApplicationContext(),
+                        "Please enable your mobile NFC.", Toast.LENGTH_LONG).show();
+            }
+        }
+
+
 
        // accountService=new AccountService();
         textViewListener=new ButtonActionListener(this,getSupportFragmentManager());
@@ -83,6 +110,46 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("Test","Tafiditra");
+        try {
+            IntentFilter[] intentFiltersArray = new IntentFilter[]{};
+            String[][] techListsArray = new String[][]{
+                    {android.nfc.tech.Ndef.class.getName()},
+                    {android.nfc.tech.NdefFormatable.class.getName()}};
+            if(nfcReader.nfcAdapter!=null)
+                nfcReader.nfcAdapter.enableForegroundDispatch(this, nfcReader.pendingIntent, intentFiltersArray,
+                        techListsArray);
+        }
+        catch(Exception ex){
+            Toast.makeText(getApplicationContext(),
+                    "NFC not supported.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        nfcReader.nfcAdapter.disableForegroundDispatch(this);
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        nfcReader.intent=intent;
+        String action = intent.getAction();
+        Log.e("Test",action);
+        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action) ||
+                NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action) ||
+                NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)) {
+            //Méthode qui va traiter le tag NFC
+           // nfcReader.processNfcIntent(intent);
+        }
+    }
+
+
+
 
 
     @Override
@@ -122,5 +189,10 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
 
+    }
+
+    @Override
+    public NdefMessage createNdefMessage(NfcEvent event) {
+        return null;
     }
 }

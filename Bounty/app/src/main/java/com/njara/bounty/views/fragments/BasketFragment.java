@@ -49,8 +49,20 @@ public class BasketFragment  extends Fragment {
 
         winpoints.setOnClickListener(textViewListener);
 
+        AppCompatButton reward=(AppCompatButton)view.findViewById(R.id.btn_reward);
+
+        reward.setOnClickListener(textViewListener);
+
+        AppCompatButton order=(AppCompatButton)view.findViewById(R.id.btn_order);
+
+        order.setOnClickListener(textViewListener);
+
         TextView winPoint =(TextView) view.findViewById(R.id.win);
         winPoint.setText(""+BasketService.getPoints());
+
+
+        TextView discount =(TextView) view.findViewById(R.id.discount);
+        discount.setText(Utilitaire.format(BasketService.discount));
 
         TextView encaisse =(TextView) view.findViewById(R.id.montant_total_top);
         encaisse.setText(Utilitaire.format(BasketService.getAmountCash()));

@@ -9,8 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.njara.bounty.R;
-import com.njara.bounty.listeners.ButtonActionListener;
+import com.njara.bounty.listeners.AuthButtonListener;
 import com.njara.bounty.services.AccountService;
 import com.njara.bounty.services.IAccountService;
 
@@ -20,33 +21,15 @@ import com.njara.bounty.services.IAccountService;
 
 public class RegisterFragment extends Fragment {
     private Activity parentActivity;
-    private ButtonActionListener textViewListener;
+    private AuthButtonListener textViewListener;
     private IAccountService accountService;
+    private FirebaseAuth fireBaseAuth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fireBaseAuth = FirebaseAuth.getInstance();
 
-        /*  fireBaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this.parentActivity, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("Test", "createUserWithEmail:success");
-                            FirebaseUser user = fireBaseAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                           // Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
-                            //        Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-
-                        // ...
-                    }
-                });*/
     }
 
     @Override
@@ -62,8 +45,9 @@ public class RegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_register, container, false);
-        textViewListener=new ButtonActionListener(getActivity(),getActivity().getSupportFragmentManager());
+        textViewListener=new AuthButtonListener(getActivity(),getActivity().getSupportFragmentManager());
         TextView textViewSignIn = (TextView) view.findViewById(R.id.link_signin);
+        textViewListener.fireBaseAuth=fireBaseAuth;
         textViewSignIn.setOnClickListener(textViewListener);
 
 

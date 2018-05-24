@@ -3,6 +3,7 @@ package com.njara.bounty.services;
 import android.util.Log;
 
 import com.njara.bounty.models.Basket;
+import com.njara.bounty.models.Card;
 import com.njara.bounty.models.Fidelity;
 import com.njara.bounty.models.Product;
 
@@ -16,6 +17,14 @@ public class BasketService implements IBasketService {
     public static List<Basket> baskets;
 
     public static double amount;
+
+    public static Card card;
+
+    public static Fidelity fidelity;
+
+    public static double discount=0;
+
+    public static boolean valid=false;
 
 
     public static boolean isDuplicate(Product basket,Product product){

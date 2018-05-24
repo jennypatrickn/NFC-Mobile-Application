@@ -3,23 +3,18 @@ package com.njara.bounty.views.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.njara.bounty.R;
-import com.njara.bounty.listeners.ButtonActionListener;
+import com.njara.bounty.listeners.AuthButtonListener;
 import com.njara.bounty.services.AccountService;
 import com.njara.bounty.services.IAccountService;
 
@@ -31,7 +26,7 @@ public class LoginFragment extends Fragment {
     FragmentTransaction fragmentTransaction;
     private FirebaseAuth fireBaseAuth;
     private Activity parentActivity;
-    private ButtonActionListener textViewListener;
+    private AuthButtonListener textViewListener;
     private IAccountService accountService;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,26 +34,7 @@ public class LoginFragment extends Fragment {
 
         fireBaseAuth = FirebaseAuth.getInstance();
 
-        String email="njr801@yahoo.com";
-        String password="Testing123";
 
-        fireBaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("Test", "signInWithEmail:success");
-
-                            FirebaseUser user = fireBaseAuth.getCurrentUser();
-
-                            updateUI(user);
-
-                        } else {
-                            Log.w("Test", "signInWithEmail:failure", task.getException());
-                            updateUI(null);
-                        }
-                    }
-                });
 
     }
     @Override
@@ -67,7 +43,8 @@ public class LoginFragment extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        textViewListener=new ButtonActionListener(getActivity(),getActivity().getSupportFragmentManager());
+        textViewListener=new AuthButtonListener(getActivity(),getActivity().getSupportFragmentManager());
+        textViewListener.fireBaseAuth=fireBaseAuth;
         TextView textViewSignUp = (TextView) view.findViewById(R.id.link_signup);
         textViewSignUp.setOnClickListener(textViewListener);
 
