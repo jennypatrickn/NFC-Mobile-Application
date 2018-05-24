@@ -50,11 +50,9 @@ public class ProductService  extends  RealTimeDatabaseProvider implements IProdu
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("RealTimeDatabase", "Value is 1: " +  dataSnapshot.getValue());
                 productList.clear();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     Product product = postSnapshot.getValue(Product.class);
-
                     productList.add(product);
 
                 }
