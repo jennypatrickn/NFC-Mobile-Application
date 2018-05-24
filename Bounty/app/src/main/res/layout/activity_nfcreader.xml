@@ -6,18 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.njara.bounty.NFCReader">
 
-    <!--<Button
-        android:id="@+id/writeBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Write Information" />
-
-    <Button
-        android:id="@+id/readBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Read NFC"/>-->
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_height="wrap_content"
@@ -28,12 +16,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Write Information"/>
-        <Button
-            android:id="@+id/readBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Read NFC"/>
     </LinearLayout>
 
 </RelativeLayout>
